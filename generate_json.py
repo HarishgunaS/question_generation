@@ -9,8 +9,11 @@ if __name__ == "__main__":
         with open("data/"+str(sys.argv[1])) as file:
             input_string = file.read()
             nlp = pipeline("question-generation", model="valhalla/t5-small-qg-prepend", qg_format="prepend")
+            print("applying nlp")
             l = nlp(input_string)
+
             for i in range(len(l)):
+                l[i]['answer'] = l[i]['answer'].replace('<pad> ', '')
                 d[i] = l[i]
         with open("data/questions.json", "w") as fp:
             json.dump(d, fp)
