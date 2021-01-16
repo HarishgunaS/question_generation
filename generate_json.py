@@ -8,7 +8,7 @@ if __name__ == "__main__":
         d = dict()
         with open("data/"+str(sys.argv[1])) as file:
             input_string = file.read()
-            nlp = pipeline("question-generation")
+            nlp = pipeline("question-generation", model="valhalla/t5-small-qg-prepend", qg_format="prepend")
             l = nlp(input_string)
             for i in range(len(l)):
                 d[i] = l[i]
